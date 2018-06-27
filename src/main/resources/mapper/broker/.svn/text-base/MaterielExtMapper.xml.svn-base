@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyauto.qa.mapper.broker.MaterielExtMapper">
+  <resultMap id="BaseResultMap" type="com.xyauto.qa.model.MaterielExt">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="materiel_id" jdbcType="BIGINT" property="materielId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="view_count" jdbcType="INTEGER" property="viewCount" />
+    <result column="agree_count" jdbcType="INTEGER" property="agreeCount" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="source_name" jdbcType="VARCHAR" property="sourceName" />
+    <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+    <result column="tag" jdbcType="VARCHAR" property="tag" />
+    <result column="score" jdbcType="DECIMAL" property="score" />
+    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+    <result column="distribute_count" jdbcType="INTEGER" property="distributeCount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    <result column="is_deleted" jdbcType="TINYINT" property="isDeleted" />
+  </resultMap>
+
+
+  <update id="updateCount" >
+      update broker_materiel_ext set
+      distribute_count =${count}
+      where materiel_id = ${materiel_id}
+  </update>
+
+  <select id="getSeriesName"   resultType="String">
+    SELECT name
+    FROM series
+    WHERE series_id IN
+    <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+      ${item}
+    </foreach>
+  </select>
+
+  <select id="getSeriesInfo"   resultType="java.util.Map">
+    SELECT name,image,dealer_price_desc
+    FROM series
+    WHERE series_id IN
+    <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+      ${item}
+    </foreach>
+  </select>
+
+
+
+</mapper>

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/resources/mapper/qa
+END
+QuestionMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/resources/mapper/qa/QuestionMapper.xml
+END
+UserDistributeLogMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/resources/mapper/qa/UserDistributeLogMapper.xml
+END
+SpiderQuestionMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/resources/mapper/qa/SpiderQuestionMapper.xml
+END
+AnswerMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/resources/mapper/qa/AnswerMapper.xml
+END

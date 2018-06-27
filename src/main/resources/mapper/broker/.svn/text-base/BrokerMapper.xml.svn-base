@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyauto.qa.mapper.broker.BrokerMapper">
+    <resultMap id="BaseResultMap" type="com.xyauto.qa.model.Broker">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="broker_id" jdbcType="BIGINT" property="brokerId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="dealer_id" jdbcType="BIGINT" property="dealerId"/>
+        <result column="dealer_name" jdbcType="VARCHAR" property="dealerName"/>
+    </resultMap>
+
+
+    <select id="getBrokerByIds" resultMap="BaseResultMap">
+        select a.broker_id, a.name, a.dealer_id , b.name as dealer_name
+        from broker a left join dealer b
+        on a.dealer_id = b.dealer_id
+        WHERE a.broker_id IN
+        <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+            ${item}
+        </foreach>
+        and a.is_deleted=0  and  a.type in(1,2)
+    </select>
+
+
+    <select id="getSeriesByBrokerId"  resultType="long"  >
+        SELECT a.series_id from dealer_car a LEFT JOIN broker b on a.dealer_id=b.dealer_id where b.broker_id= ${broker_id} GROUP BY a.series_id
+    </select>
+
+
+    <select id="getBrokerByDealerId" resultMap="BaseResultMap">
+        select a.broker_id, a.name, a.dealer_id , b.name as dealer_name
+        from broker a left join dealer b
+        on a.dealer_id = b.dealer_id
+        WHERE a.dealer_id = ${dealer_id}
+        and a.is_deleted=0  and  a.type in(1,2)
+    </select>
+
+
+
+
+    <select id="getReal"   resultType="java.util.Map">
+        SELECT a.brokerId,a.MaterielID AS materielId,a.CreateTime,b.source ,b.serial_ids FROM  test.`BrokerMaterielRela_10280501` a LEFT JOIN xy_broker.broker_materiel  b  ON  a.MaterielID = b.id WHERE a.IsActive=1 AND a. RelaId >37811299
+    </select>
+
+
+
+
+
+</mapper>

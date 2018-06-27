@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/xyask/!svn/ver/1682/subsys/third/trunk/src/main/resources/mapper/broker
+END
+BrokerMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/xyask/!svn/ver/1680/subsys/third/trunk/src/main/resources/mapper/broker/BrokerMapper.xml
+END
+MaterielExtMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/xyask/!svn/ver/1643/subsys/third/trunk/src/main/resources/mapper/broker/MaterielExtMapper.xml
+END
+MaterielMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/xyask/!svn/ver/1698/subsys/third/trunk/src/main/resources/mapper/broker/MaterielMapper.xml
+END

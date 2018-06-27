@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyauto.qa.mapper.log.DistributeMapper">
+    <resultMap id="BaseResultMap" type="com.xyauto.qa.model.Distribute">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="broker_id" jdbcType="BIGINT" property="brokerId"/>
+        <result column="materiel_id" jdbcType="BIGINT" property="materielId"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
+        <result column="task_tag" jdbcType="TINYINT" property="taskTag"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+
+    <select id="getUserCount" resultType="int">
+        SELECT count(broker_id)
+        FROM broker_materiel_distribute
+        where
+        broker_id=${distribute.brokerId}
+        and status=${distribute.status}
+        and type=${distribute.type}
+        and create_time <![CDATA[ >= ]]> #{start_time}
+        and create_time <![CDATA[ <  ]]> #{end_time}
+        <choose>
+            <when test="task_tag">
+                and task_tag=${task_tag}
+            </when>
+            <otherwise>
+                and task_tag != 0
+            </otherwise>
+        </choose>
+    </select>
+
+
+    <select id="getDistributeCount" resultType="int">
+        SELECT count(1)
+        FROM broker_materiel_distribute
+        where
+        materiel_id=${materiel_id}
+        AND is_deleted = 0
+    </select>
+
+
+    <select id="getDistributeDealerCount" resultType="int">
+        select count(1) from (SELECT count(1) FROM broker_materiel_distribute where materiel_id=${materiel_id} group by dealer_id ) a
+    </select>
+
+
+    <select id="getDistributeIdsCount" resultType="int">
+        SELECT count(0)
+        FROM
+        broker_materiel_distribute
+        WHERE broker_id = #{broker_id}
+        AND is_deleted = 0
+        <if test="max!=0">
+            and id  <![CDATA[ < ]]>  ${max}
+        </if>
+        <if test="source">
+            <choose>
+                <when test="source==1">
+                    and source != 3
+                    and series_ids is not null
+                </when>
+                <when test="source==2">
+                    and source = 3
+                </when>
+                <when test="source==3">
+                    and source = 1
+                    and series_ids is null
+                </when>
+                <when test="source==4">
+                    and source = 2
+                    and series_ids is null
+                </when>
+                <when test="source==5">
+                    and source = 6
+                    and series_ids is null
+                </when>
+            </choose>
+        </if>
+    </select>
+
+
+    <select id="getDistributeIds" resultMap="BaseResultMap">
+        SELECT id,materiel_id
+        FROM broker_materiel_distribute
+        where
+        broker_id=${broker_id}
+        and is_deleted=0
+        <if test="max!=0">
+            and id  <![CDATA[ < ]]>  ${max}
+        </if>
+        <if test="source">
+            <choose>
+                <when test="source==1">
+                    and source != 3
+                    and series_ids is not null
+                </when>
+                <when test="source==2">
+                    and source = 3
+                </when>
+                <when test="source==3">
+                    and source = 1
+                    and series_ids is null
+                </when>
+                <when test="source==4">
+                    and source = 2
+                    and series_ids is null
+                </when>
+                <when test="source==5">
+                    and source = 6
+                    and series_ids is null
+                </when>
+            </choose>
+        </if>
+    </select>
+
+
+    <update id="del">
+        UPDATE broker_materiel_distribute
+        set is_deleted = 1,update_time=now()
+        WHERE
+        broker_id=${broker_id}  and  materiel_id=${materiel_id}
+    </update>
+
+
+    <update id="delByDealer">
+        UPDATE broker_materiel_distribute
+        set is_deleted = 1,update_time=now()
+        WHERE
+        dealer_id=${dealer_id}  and  materiel_id=${materiel_id}
+    </update>
+
+
+</mapper>

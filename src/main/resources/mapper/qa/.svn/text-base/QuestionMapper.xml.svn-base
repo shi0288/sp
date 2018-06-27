@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyauto.qa.mapper.qa.QuestionMapper" >
+
+	<resultMap type="com.xyauto.qa.model.Question" id="question">
+		<id property="question_id" column="question_id"/>
+		<result property="uid" column="uid"/>
+		<result property="category_id" column="category_id"/>
+		<result property="category_name" column="category_name"/>
+		<result property="parent_category_id" column="parent_category_id"/>
+		<result property="parent_category_name" column="parent_category_name"/>
+		<result property="content" column="content"/>
+		<result property="has_attach" column="has_attach"/>
+		<result property="answer_count" column="answer_count"/>
+		<result property="answer_users_count" column="answer_users_count"/>
+		<result property="source" column="source"/>
+		<result property="is_good" column="is_good"/>
+		<result property="good_sort" column="good_sort"/>
+		<result property="is_top" column="is_top"/>
+		<result property="good_sort" column="good_sort"/>
+		<result property="top_sort" column="top_sort"/>
+		<result property="lng" column="lng"/>
+		<result property="lat" column="lat"/>
+		<result property="status" column="status"/>
+		<result property="city_id" column="city_id"/>
+		<result property="sort" column="sort"/>
+		<result property="created_at" column="created_at"/>
+		<result property="type" column="question_type"/>
+		<result property="key" column="key"/>
+		<result property="has_expert_answered" column="has_expert_answered"/>
+		<result property="has_favorite" column="has_favorite"/>
+		<result property="deleted_at" column="deleted_at"/>
+		<result property="third_id" column="third_id"/>
+		<result property="agree_count" column="agree_count"/>
+		<result property="has_agree" column="has_agree"/>
+		<association property="user" resultMap="user"/>
+		<association property="cars" resultMap="series"/>
+		<association property="city" resultMap="city"/>
+	</resultMap>
+
+
+	<select id="getLastestThirdId" resultType="java.lang.String">
+		select IFNULL(MAX(third_id), 0) as start_id from question where source = #{source}
+	</select>
+
+
+	<select id="getByThird" resultMap="question">
+		<![CDATA[
+        select q.question_id, q.uid, q.category_id, q.content, q.has_attach, q.answer_count, q.status, q.type as question_type, q.agree_count,
+        q.answer_users_count, q.source, q.is_good, q.good_sort, q.is_top, q.top_sort, q.lng, q.lat, q.key, q.created_at, q.third_id,
+        user.uid, user.type, user.word, user.intro, user.expert_name, user.expert_avatar,user.status as user_status, user.is_official,
+        c.category_id, c.name as category_name,
+        pc.category_id as parent_category_id, pc.name as parent_category_name,
+        city.id as city_id, city.name as city_name,
+        province.id as province_id, province.name as province_name,
+        series.series_id, series.name as series_name, series.urlspell as series_urlspell,
+        brand.brand_id, brand.name as brand_name,
+        (case (select count(1) from answer
+        join user on user.uid = answer.uid and user.type = 2 and user.status not in (-3,-1)
+        where question_id = q.question_id and answer.deleted_at = 0) when 0 then 0 else 1 end) as has_expert_answered
+        from question q
+        left join user on user.uid = q.uid
+        left join category c on c.category_id = q.category_id
+        left join category pc on pc.category_id = c.parent
+        left join question_car qc on qc.question_id = q.question_id
+        left join city on city.id = q.city_id and city.type = 1
+        left join city province on province.id = city.parent and province.type = 0
+        left join series on series.series_id = qc.series_id
+        left join brand on brand.brand_id = qc.brand_id
+        left join subbrand on subbrand.subbrand_id = series.subbrand_id
+        where q.third_id = #{third_id} and q.deleted_at = 0 and (q.status > 0 or q.status = -99) and q.source = #{source}
+        ]]>
+	</select>
+
+
+	<insert id="add" parameterType="com.xyauto.qa.model.Question">
+		<selectKey resultType="_long" keyProperty="question_id" order="AFTER">
+			select @@IDENTITY as question_id
+		</selectKey>
+		INSERT INTO question (uid, category_id, content, has_attach, source, is_good, lng, lat, city_id, created_at, updated_at, third_id, status, type)
+		select #{uid}, #{category_id}, #{content}, #{has_attach}, #{source}, #{is_good}, #{lng}, #{lat}, #{city_id}, unix_timestamp(now()), unix_timestamp(now()), #{third_id}, #{status}, #{type} from dual
+		<if test="third_id!=''">
+			where NOT EXISTS (SELECT question_id FROM question
+			WHERE source=#{source} AND third_id=#{third_id})
+		</if>
+	</insert>
+
+
+	<update id="incAnswerCount">
+		update question set
+		answer_count = answer_count + 1,
+		updated_at = unix_timestamp(now())
+		where question_id = #{question_id}
+	</update>
+
+
+	<update id="recountAnswerUserCount">
+		update question set answer_users_count =
+		(select count(distinct uid) from answer where question_id=#{question_id} and deleted_at = 0),
+		updated_at = unix_timestamp(now())
+		where question_id = #{question_id}
+	</update>
+
+
+	<update id="recountAnswerCount">
+		update question set answer_count =
+		(select count(1) from answer where question_id=#{question_id} and deleted_at = 0),
+		updated_at = unix_timestamp(now())
+		where question_id = #{question_id}
+	</update>
+
+
+
+
+</mapper>

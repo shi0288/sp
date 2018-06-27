@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/xyask/!svn/ver/1696/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/util
+END
+QaRequestInterceptor.kt
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/util/QaRequestInterceptor.kt
+END
+PagerForPage.kt
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/util/PagerForPage.kt
+END
+KafkaHelper.kt
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/xyask/!svn/ver/1657/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/util/KafkaHelper.kt
+END
+Pager.kt
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/util/Pager.kt
+END
+CacheMemory.kt
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/xyask/!svn/ver/1951/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/util/CacheMemory.kt
+END
+PostgreCopyUtil.kt
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/xyask/!svn/ver/1783/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/util/PostgreCopyUtil.kt
+END
+HttpClientWrapper.kt
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/xyask/!svn/ver/1172/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/util/HttpClientWrapper.kt
+END
+PagerForMax.kt
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/util/PagerForMax.kt
+END
+BaseController.kt
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/xyask/!svn/ver/1704/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/util/BaseController.kt
+END
+DateValueFilter.kt
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/util/DateValueFilter.kt
+END

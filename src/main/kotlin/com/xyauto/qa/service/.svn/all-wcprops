@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/xyask/!svn/ver/1696/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/service
+END
+AnswerService.kt
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/service/AnswerService.kt
+END
+PinganService.kt
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/service/PinganService.kt
+END
+DistributeService.kt
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/xyask/!svn/ver/1872/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/service/DistributeService.kt
+END
+MaterielService.kt
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/xyask/!svn/ver/1874/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/service/MaterielService.kt
+END
+SpiderService.kt
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/xyask/!svn/ver/1784/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/service/SpiderService.kt
+END
+Qh360Service.kt
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/xyask/!svn/ver/1646/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/service/Qh360Service.kt
+END
+QuestionService.kt
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/service/QuestionService.kt
+END
+UserDistributeLogService.kt
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/service/UserDistributeLogService.kt
+END
+BrokerService.kt
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/xyask/!svn/ver/1722/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/service/BrokerService.kt
+END
+BaiduService.kt
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/service/BaiduService.kt
+END

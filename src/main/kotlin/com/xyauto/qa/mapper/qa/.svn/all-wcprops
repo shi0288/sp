@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/mapper/qa
+END
+QuestionMapper.kt
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/mapper/qa/QuestionMapper.kt
+END
+AttachMapper.kt
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/mapper/qa/AttachMapper.kt
+END
+AnswerMapper.kt
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/mapper/qa/AnswerMapper.kt
+END
+CategoryMapper.kt
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/mapper/qa/CategoryMapper.kt
+END
+SpiderQuestionMapper.kt
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/mapper/qa/SpiderQuestionMapper.kt
+END
+UserMapper.kt
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/mapper/qa/UserMapper.kt
+END
+UserDistributeLogMapper.kt
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/mapper/qa/UserDistributeLogMapper.kt
+END

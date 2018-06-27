@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyauto.qa.mapper.qa.AnswerMapper">
+
+    <resultMap type="com.xyauto.qa.model.Answer" id="answer">
+        <id property="answer_id" column="answer_id"/>
+        <result property="uid" column="uid"/>
+        <result property="question_id" column="question_id"/>
+        <result property="content" column="content"/>
+        <result property="agree_count" column="agree_count"/>
+        <result property="has_attach" column="has_attach"/>
+        <result property="source" column="source"/>
+        <result property="created_at" column="created_at"/>
+        <result property="sort" column="sort"/>
+        <result property="deleted_at" column="deleted_at"/>
+        <result property="has_agree" column="has_agree"/>
+        <result property="reply_uid" column="a_reply_uid"/>
+        <result property="reply_answer_id" column="a_reply_answer_id"/>
+    </resultMap>
+
+
+    <resultMap type="com.xyauto.qa.model.Answer" id="answerWithQuestion">
+        <id property="answer_id" column="answer_id"/>
+        <result property="uid" column="uid"/>
+        <result property="question_id" column="question_id"/>
+        <result property="content" column="content"/>
+        <result property="agree_count" column="agree_count"/>
+        <result property="has_attach" column="has_attach"/>
+        <result property="source" column="source"/>
+        <result property="created_at" column="created_at"/>
+        <result property="sort" column="sort"/>
+        <result property="deleted_at" column="deleted_at"/>
+        <result property="has_agree" column="has_agree"/>
+        <result property="reply_uid" column="a_reply_uid"/>
+        <result property="reply_answer_id" column="a_reply_answer_id"/>
+        <association property="question" javaType="com.xyauto.qa.model.Question">
+            <result property="third_id" column="question_third_id"/>
+            <result property="deleted_at" column="question_deleted_at"/>
+        </association>
+    </resultMap>
+
+
+    <select id="getByThird" resultMap="answer">
+        select *
+        from answer a
+        where a.third_id = #{third_id} and a.source = #{source}
+    </select>
+
+
+    <insert id="add" parameterType="com.xyauto.qa.model.Answer">
+        <selectKey resultType="_long" keyProperty="answer_id" order="AFTER">
+            select @@IDENTITY as answer_id
+        </selectKey>
+        insert into answer(uid, question_id, content, has_attach, source, reply_uid, reply_answer_id, city_id,
+        created_at, updated_at, third_id)
+        select #{uid}, #{question_id}, #{content}, #{has_attach}, #{source}, #{reply_uid}, #{reply_answer_id},
+        #{city_id}, unix_timestamp(now()), unix_timestamp(now()), #{third_id} from dual
+        <if test="third_id!=''">
+            where NOT EXISTS (SELECT answer_id FROM answer
+            WHERE source=#{source} AND third_id=#{third_id})
+        </if>
+    </insert>
+
+
+    <select id="getListByCreatedAtCount" resultType="int">
+        SELECT
+        count(*)
+        FROM
+        answer as answer
+        left join question as question on answer.question_id=question.question_id
+        left join user on answer.uid=user.uid
+        where   answer.source <![CDATA[ <> ]]> #{source} and answer.created_at >= #{start}   and answer.created_at <![CDATA[ < ]]> #{end}   AND (user.type  =1 OR user.type=2)  and  question.source=#{source}
+    </select>
+
+
+    <select id="getListByCreatedAt" resultMap="answerWithQuestion">
+        SELECT
+        answer.answer_id, answer.question_id, answer.content, answer.agree_count, answer.has_attach,answer.source, answer.created_at,answer.uid,
+        question.third_id as question_third_id,question.deleted_at as question_deleted_at
+        FROM
+        answer as answer
+        left join question as question on answer.question_id=question.question_id
+        left join user on answer.uid=user.uid
+        where   answer.source <![CDATA[ <> ]]> #{source} and answer.created_at >= #{start}  and answer.created_at <![CDATA[ < ]]> #{end}    AND (user.type  =1 OR user.type=2)  and  question.source=#{source}
+    </select>
+
+
+    <select id="getListByCreateAtCountOnFirst" resultType="int">
+        SELECT
+        count(*)
+        FROM
+        answer as ans
+        left join question as ques on ans.question_id=ques.question_id
+        left join user on ans.uid=user.uid
+        where
+        ans.source <![CDATA[ <> ]]> #{source}
+        and ans.created_at >= #{start}
+        and ans.created_at <![CDATA[ < ]]> #{end}
+        and ques.source=#{source}
+        AND (user.type  =1 OR user.type=2)
+        and not exists(select 1 from answer where question_id=ans.question_id  and answer_id <![CDATA[ <]]> ans.answer_id )
+    </select>
+
+
+    <select id="getListByCreateAtOnFirst" resultMap="answerWithQuestion">
+        SELECT
+        ans.answer_id, ans.question_id, ans.content, ans.agree_count, ans.has_attach,ans.source, ans.created_at,
+        ques.third_id as question_third_id,ques.deleted_at as question_deleted_at
+        FROM
+        answer as ans
+        left join question as ques on ans.question_id=ques.question_id
+        left join user on ans.uid=user.uid
+        where
+        ans.source <![CDATA[ <> ]]> #{source}
+        and ans.created_at >= #{start}
+        and ans.created_at <![CDATA[ < ]]> #{end}
+        and ques.source=#{source}
+        AND (user.type  =1 OR user.type=2)
+        and not exists(select 1 from answer where question_id=ans.question_id  and answer_id <![CDATA[ <]]> ans.answer_id )
+    </select>
+
+    <update id="updateThirdId">
+       update answer set third_id=#{third_id} where answer_id=#{answer_id}
+    </update>
+
+
+</mapper>

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/xyask/!svn/ver/1696/subsys/third/trunk/src/main/resources
+END
+bootstrap-test.properties
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/xyask/!svn/ver/1782/subsys/third/trunk/src/main/resources/bootstrap-test.properties
+END
+bootstrap.properties
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/xyask/!svn/ver/1697/subsys/third/trunk/src/main/resources/bootstrap.properties
+END
+logback.xml
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/xyask/!svn/ver/1689/subsys/third/trunk/src/main/resources/logback.xml
+END
+bootstrap-preprod.properties
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/xyask/!svn/ver/1706/subsys/third/trunk/src/main/resources/bootstrap-preprod.properties
+END
+bootstrap-prod.properties
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/xyask/!svn/ver/1706/subsys/third/trunk/src/main/resources/bootstrap-prod.properties
+END

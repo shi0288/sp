@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/util/dbconfig
+END
+LogDBConfig.kt
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/util/dbconfig/LogDBConfig.kt
+END
+QaDBConfig.kt
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/util/dbconfig/QaDBConfig.kt
+END
+BrokerDBConfig.kt
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/util/dbconfig/BrokerDBConfig.kt
+END

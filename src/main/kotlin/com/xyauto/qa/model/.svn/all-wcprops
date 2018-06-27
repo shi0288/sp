@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/xyask/!svn/ver/1643/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/model
+END
+Materiel.kt
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/model/Materiel.kt
+END
+Distribute.kt
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/xyask/!svn/ver/1643/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/model/Distribute.kt
+END
+Category.kt
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/model/Category.kt
+END
+MaterielExt.kt
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/model/MaterielExt.kt
+END
+Broker.kt
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/xyask/!svn/ver/1643/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/model/Broker.kt
+END
+UserDistributeLog.kt
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/xyask/!svn/ver/1506/subsys/third/trunk/src/main/kotlin/com/xyauto/qa/model/UserDistributeLog.kt
+END

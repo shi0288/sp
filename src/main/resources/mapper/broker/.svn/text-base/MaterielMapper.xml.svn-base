@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyauto.qa.mapper.broker.MaterielMapper">
+    <resultMap id="BaseResultMap" type="com.xyauto.qa.model.Materiel">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
+        <result column="content_type" jdbcType="TINYINT" property="contentType"/>
+        <result column="source" jdbcType="TINYINT" property="source"/>
+        <result column="original_id" jdbcType="VARCHAR" property="originalId"/>
+        <result column="publish_time" jdbcType="INTEGER" property="publishTime"/>
+        <result column="task_id" jdbcType="VARCHAR" property="taskId"/>
+        <result column="city_ids" jdbcType="VARCHAR" property="cityIds"/>
+        <result column="is_join_car" jdbcType="TINYINT" property="isJoinCar"/>
+        <result column="brand_ids" jdbcType="VARCHAR" property="brandIds"/>
+        <result column="serial_ids" jdbcType="VARCHAR" property="serialIds"/>
+        <result column="dealer_ids" jdbcType="VARCHAR" property="dealerIds"/>
+        <result column="ask_type" jdbcType="TINYINT" property="askType"/>
+        <result column="ask_uid" jdbcType="BIGINT" property="askUid"/>
+        <result column="ask_id" jdbcType="BIGINT" property="askId"/>
+        <result column="template_id" jdbcType="BIGINT" property="templateId"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
+    </resultMap>
+
+
+    <resultMap id="BrokerResultMap" type="com.xyauto.qa.model.Broker">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="broker_id" jdbcType="BIGINT" property="brokerId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="dealer_id" jdbcType="BIGINT" property="dealerId"/>
+        <result column="dealer_name" jdbcType="VARCHAR" property="dealerName"/>
+    </resultMap>
+
+
+    <select id="getTimerRabbitMateriel" resultMap="BaseResultMap">
+        select broker_materiel.id,broker_materiel.city_ids,broker_materiel.name,broker_materiel.brand_ids,broker_materiel.serial_ids,broker_materiel.source,broker_materiel.content_type
+        from broker_materiel
+        where
+        content_type=1
+        and source=2
+        and type in(1,4)
+        and status=1
+        and create_time <![CDATA[ >= ]]> #{start_time}
+        and create_time <![CDATA[ <  ]]> #{end_time}
+        order by city_ids desc
+    </select>
+
+    <select id="getTimerMasterMateriel" resultMap="BaseResultMap">
+        select broker_materiel.id,broker_materiel.brand_ids,broker_materiel.serial_ids,broker_materiel.city_ids,broker_materiel.name,broker_materiel.source,broker_materiel.content_type
+        from broker_materiel
+        where content_type=1 and source = 1 and  type=1 and status=1
+        and create_time <![CDATA[ >= ]]> #{start_time}
+        and create_time <![CDATA[ <  ]]> #{end_time}
+        order by serial_ids desc,city_ids desc
+    </select>
+
+    <select id="getTimerQaMateriel" resultMap="BaseResultMap">
+       select broker_materiel.id,broker_materiel.brand_ids,broker_materiel.serial_ids,broker_materiel.city_ids,broker_materiel.name,broker_materiel.source,broker_materiel.content_type
+        from broker_materiel
+        where content_type=1 and source = 6 and ask_type =1 and type=3 and status=1
+        and create_time <![CDATA[ >= ]]> #{start_time}
+        and create_time <![CDATA[ <  ]]> #{end_time}
+        order by serial_ids desc,city_ids desc
+    </select>
+
+
+    <!--<select id="getActualQaMateriel" resultMap="BaseResultMap">-->
+    <!--select broker_materiel.id,broker.broker_id as ask_uid,broker_materiel.brand_ids,broker_materiel.serial_ids,broker_materiel.city_ids,broker_materiel.name-->
+    <!--from broker_materiel left join broker-->
+    <!--on broker_materiel.ask_uid = broker.broker_id-->
+    <!--where-->
+    <!--broker_materiel.content_type=1-->
+    <!--and broker_materiel.source=6-->
+    <!--and broker_materiel.ask_type in (2,3)-->
+    <!--and broker_materiel.type=3-->
+    <!--and broker_materiel.status=1-->
+    <!--and create_time <![CDATA[ >= ]]> #{start_time}-->
+    <!--and create_time <![CDATA[ <  ]]> #{end_time}-->
+    <!--</select>-->
+
+
+    <select id="getActualQaMateriel" resultMap="BaseResultMap">
+    select broker_materiel.id,broker_materiel.ask_uid,broker_materiel.brand_ids,broker_materiel.serial_ids,broker_materiel.city_ids,broker_materiel.name,broker_materiel.source,broker_materiel.content_type
+    from broker_materiel
+    where
+    content_type=1
+    and source=6
+    and ask_type in (2,3)
+    and type=3
+    and status=1
+    and create_time <![CDATA[ >= ]]> #{start_time}
+    and create_time <![CDATA[ <  ]]> #{end_time}
+    </select>
+
+
+    <select id="getActualNewsMateriel" resultMap="BaseResultMap">
+        select broker_materiel.id,broker_materiel.dealer_ids,broker_materiel.brand_ids,broker_materiel.serial_ids,broker_materiel.city_ids,broker_materiel.name,broker_materiel.source,broker_materiel.content_type
+        from broker_materiel
+        where
+        content_type=1
+        and source=3
+        and type=4
+        and status=1
+        and create_time <![CDATA[ >= ]]> #{start_time}
+        and create_time <![CDATA[ <  ]]> #{end_time}
+    </select>
+
+    <!--
+        通过时间获取这段时间内的所有物料ID
+   -->
+    <select id="getMaterielTemplateIdByTime" resultMap="BaseResultMap">
+        select broker_materiel.id,broker_materiel.template_id
+        from broker_materiel
+        WHERE
+        create_time <![CDATA[ >= ]]> #{start_time}
+        and create_time <![CDATA[ <  ]]> #{end_time}
+        and status=1
+        and broker_materiel.template_id !=0
+    </select>
+
+
+    <!--
+          通过车系获取用户
+     -->
+    <select id="getUidBySeriesIdsCount" resultType="int">
+        select count(1)
+        from
+        (select a.broker_id,b.dealer_id  from broker as  a ,
+        (select series_id,dealer_id from dealer_car where series_id in
+        <foreach item="item" index="index" collection="serialIds" open="(" separator="," close=")">
+            ${item}
+        </foreach>
+        GROUP BY dealer_id) as  b where a.dealer_id=b.dealer_id and a.is_deleted=0  and  a.type in(1,2) ) as base LEFT JOIN dealer oth on base.dealer_id=oth.dealer_id
+    </select>
+
+    <select id="getUidBySeriesIds" resultMap="BrokerResultMap">
+        select base.broker_id, base.name, base.dealer_id , oth.name as dealer_name
+        from
+        (select a.broker_id,a.name,b.dealer_id  from broker as  a ,
+        (select series_id,dealer_id from dealer_car where series_id in
+        <foreach item="item" index="index" collection="serialIds" open="(" separator="," close=")">
+            ${item}
+        </foreach>
+        GROUP BY dealer_id) as  b where a.dealer_id=b.dealer_id and a.is_deleted=0  and  a.type in(1,2) ) as base LEFT JOIN dealer oth on base.dealer_id=oth.dealer_id
+    </select>
+
+    <!--
+             通过城市获取用户
+        -->
+    <select id="getUidByCityIdCount" resultType="int">
+        select count(a.broker_id)
+        from broker a LEFT JOIN dealer b
+        on a.dealer_id=b.dealer_id
+        where
+        b.city_id in
+        <foreach item="item" index="index" collection="cityIds" open="(" separator="," close=")">
+            ${item}
+        </foreach>
+        and a.is_deleted=0  and  a.type in(1,2)
+    </select>
+
+    <select id="getUidByCityId" resultMap="BrokerResultMap">
+        select a.broker_id, a.name, a.dealer_id , b.name as dealer_name
+        from broker a LEFT JOIN dealer b
+        on a.dealer_id=b.dealer_id
+        where
+        b.city_id in
+        <foreach item="item" index="index" collection="cityIds" open="(" separator="," close=")">
+            ${item}
+        </foreach>
+        and a.is_deleted=0  and  a.type in(1,2)
+    </select>
+
+    <!--
+               获取所有用户
+          -->
+    <select id="getAllUidCount" resultType="int">
+        select count(a.broker_id)
+        from  broker a where a.is_deleted=0  and  a.type in(1,2)
+    </select>
+
+
+    <select id="getAllUid" resultMap="BrokerResultMap">
+        select  a.broker_id, a.name, a.dealer_id , b.name as dealer_name
+        from  broker a left join dealer b
+        on a.dealer_id=b.dealer_id
+        where a.is_deleted=0 and  a.type in(1,2)
+    </select>
+
+    <select id="getAllBrokerIds" resultType="java.util.Map">
+        select  a.broker_id
+        from  broker a
+        where a.is_deleted=0 and  a.type in(1,2)
+    </select>
+
+    <sql id="materiel_list_column">
+        a.id as materiel_id,a.name,a.publish_time,a.city_ids,a.province_ids,a.source,a.brand_ids,a.serial_ids,
+        a.status,a.is_deleted,a.content_type,b.summary,b.view_count,b.agree_count,b.image,b.source_name,b.category_name,
+        b.score,b.city_name
+    </sql>
+
+    <sql id="materiel_get_column">
+        a.id as materiel_id,a.name,a.publish_time,a.city_ids,a.province_ids,a.source,a.brand_ids,a.serial_ids,b.content,
+        a.status,a.is_deleted,a.content_type,b.summary,b.view_count,b.agree_count,b.image,b.source_name,b.category_name,
+        b.score,b.city_name
+    </sql>
+
+    <!--
+                  获取物料列表
+             -->
+    <select id="getMaterielByIds" resultType="java.util.Map">
+        select
+        <include refid="materiel_list_column"/>
+        FROM broker_materiel a LEFT JOIN broker_materiel_ext b
+        on a.id=b.materiel_id
+        WHERE a.is_deleted=0
+        and a.id in
+        <foreach item="item" index="index" collection="ids" separator="," open="(" close=")">
+            ${item}
+        </foreach>
+        ORDER BY FIELD
+        <foreach item="item" index="index" collection="ids" separator="," open="(a.id," close=")">
+            ${item}
+        </foreach>
+    </select>
+
+    <!--
+                   获取物料详情
+              -->
+    <select id="getMaterielById" resultType="java.util.Map">
+        select
+        <include refid="materiel_get_column"/>
+        FROM broker_materiel a LEFT JOIN broker_materiel_ext b
+        on a.id=b.materiel_id
+        WHERE a.is_deleted=0
+        and a.id = ${materiel_id}
+    </select>
+
+
+    <select id="getCityIdsByParentId" resultType="String">
+        SELECT id
+        from city
+        where parent in
+        <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+            ${item}
+        </foreach>
+    </select>
+
+
+    <select id="getDealerIdsByTemplateId" resultType="long">
+        SELECT dealer_id
+        from broker_materiel_template_dealer_rela
+        where template_id=${template_id}
+    </select>
+
+
+    <!--<select id="getAllUid" resultType="java.util.List">-->
+    <!--select  a.broker_id-->
+    <!--from  broker a left join broker_distribute b-->
+    <!--on a.uid=b.uid-->
+    <!--group by a.broker_id-->
+    <!--having  count(b.broker_id) <![CDATA[ < ]]> ${limitCount}-->
+    <!--ORDER BY count(b.broker_id) asc-->
+    <!--</select>-->
+
+    <select id="getOriginDistributeCount" resultType="long">
+         select sum(b.distribute_count)
+         from broker_materiel a LEFT JOIN broker_materiel_ext b
+         on a.id=b.materiel_id
+         where a.original_id in
+        <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+
+
+</mapper>

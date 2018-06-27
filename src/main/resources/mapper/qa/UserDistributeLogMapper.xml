@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyauto.qa.mapper.qa.UserDistributeLogMapper">
+
+    <resultMap id="distributeLogCount" type="com.xyauto.qa.model.UserDistributeLog">
+        <id property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="count" column="count"/>
+    </resultMap>
+
+
+    <select id="getDistributeCountByUid" resultMap="distributeLogCount">
+       SELECT
+       uid,
+       COUNT(question_id) as count
+       FROM user_distribute_log
+       WHERE
+       uid IN
+        <foreach item="item" index="index" collection="uids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND
+        created_at >= #{start}
+        AND
+        created_at <![CDATA[ < ]]> #{end}
+        GROUP BY uid
+    </select>
+
+
+</mapper>
